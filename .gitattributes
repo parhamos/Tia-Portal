@@ -1,0 +1,2 @@
+109797235_Automation_Compare_Tool_1_1[[:space:]](1).zip filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
