@@ -1,6 +1,6 @@
 # Tia-Portal
 ---
-## Connect Tia Portal Project
+## Connect VCI
 ```
 git init
 git add README.md
