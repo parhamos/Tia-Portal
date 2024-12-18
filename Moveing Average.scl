@@ -1,0 +1,56 @@
+﻿FUNCTION_BLOCK "Moveing Average"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      I_Raw_Value : Real;
+      Pulse : Bool;
+   END_VAR
+
+   VAR_OUTPUT 
+      MA_Out_AI : Real;
+   END_VAR
+
+   VAR 
+      Average : Real;
+      Sum : Real;
+      i : Int;
+      StatePulse : Bool;
+      StateFlag : Bool := false;
+      StateEdge : Bool := false;
+      Buffer : Array[0..#PERIOD] of Real;
+   END_VAR
+
+   VAR CONSTANT 
+      PERIOD : Int := 5;
+   END_VAR
+
+
+BEGIN
+	
+	
+	IF #i > #PERIOD - 1 THEN
+	    #i := 0;
+	    
+	END_IF;
+	
+	IF #i < 0 THEN
+	    #i := 0;
+	    ;
+	END_IF;
+	
+	#StatePulse := #Pulse;
+	
+	#StateEdge := #StatePulse AND NOT #StateFlag;
+	#StateFlag := #StatePulse;
+	
+	IF (#StateEdge) THEN
+	    
+	    #Sum := #Sum + #I_Raw_Value - #Buffer[#i];
+	    #Buffer[#i] := #I_Raw_Value;
+	    #i := #i + 1;
+	    #Average := #Sum / #PERIOD;
+	    #MA_Out_AI := #Average;
+	    
+	END_IF;
+END_FUNCTION_BLOCK
+

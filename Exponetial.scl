@@ -1,0 +1,23 @@
+﻿FUNCTION_BLOCK "Exponetial"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      I_RAW_AI : Real;
+      FACTOR : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      Filtered_AI : Real;
+   END_VAR
+
+   VAR 
+      Static_FILTERED_AI : Real;
+   END_VAR
+
+
+BEGIN
+	#Static_FILTERED_AI := #FACTOR * #I_RAW_AI + (1 - #FACTOR) * #Static_FILTERED_AI;
+	#Filtered_AI := #Static_FILTERED_AI;
+	
+END_FUNCTION_BLOCK
+
